@@ -2,6 +2,8 @@ package model;
 
 import Controller.Frontend.FXMLDocumentController;
 import java.net.SocketException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -222,16 +224,19 @@ public class User {
     }
 
     byte[] getData() {
+        Date d = new Date();
         String data = key + "\n"
                 + name + "\n"
                 + age + "\n"
                 + sex + "\n"
                 + temperature + "\n"
-                + oxygenSaturation + "\n"
                 + breathingRate + "\n"
                 + heartRate + "\n"
+                + oxygenSaturation + "\n"
                 + systolicBloodPressure + "\n"
-                + diastolicBloodPressure + "\n";
+                + diastolicBloodPressure + "\n"
+                +d.getDay()+"/"+d.getMonth()+"/"+(Calendar.getInstance().get(Calendar.YEAR))+"\n"
+                +d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()+"\n";
         return data.getBytes();
     }
     

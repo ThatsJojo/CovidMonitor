@@ -227,9 +227,10 @@ public class FXMLDocumentController implements Initializable {
         try {
             String ip = userIP.getText();
             String port = userPort.getText();
-            String key = userKey.getText();
-            if (ip.equals("") || key.equals("") || port.equals("")) {
-                throw new nullUserInfoException(" User: \"" + key + "\" IP: \"" + ip + "\" Port: \"" + port + "\"");
+            String key = userKey.getText().replaceAll(" ", "");
+            String name = userName.getText();
+            if (ip.equals("") || key.equals("") || port.equals("")||name.equals("")) {
+                throw new nullUserInfoException(" User: \"" + key +" Nome: \"" + name + "\" IP: \"" + ip + "\" Port: \"" + port + "\"");
             }
             user = UserController.createUser(ip, port, key, userName.getText(), userAge.getValue(), userSex.getValue(), this);
             System.out.println("Criando nova Conexão - " + " User: \"" + key + "\" IP: \"" + ip + "\" Port: \"" + port + "\".");
