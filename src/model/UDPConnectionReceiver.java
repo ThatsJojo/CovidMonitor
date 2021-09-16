@@ -31,7 +31,13 @@ public class UDPConnectionReceiver extends Thread {
             DatagramPacket pkg = new DatagramPacket(msg, msg.length);
             while (connected) {
                 ds = new DatagramSocket(porta, InetAddress.getByName(IP));
-                ds.receive(pkg);
+                try{
+                    ds.receive(pkg);
+                }catch(SocketException ex){
+                    if(!ex.getMessage().equals("Receive timed out")){
+                        throw ex;
+                    }
+                }
                 String recievedMessage[] = new String(pkg.getData()).trim().split("\n");
                 if (recievedMessage != null && recievedMessage.length > 1) {
                     User user = USERS.get(recievedMessage[0]);
