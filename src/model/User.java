@@ -222,6 +222,21 @@ public class User {
     }
 
     byte[] getData() {
+        String data = key + "\n"
+                + name + "\n"
+                + age + "\n"
+                + sex + "\n"
+                + temperature + "\n"
+                + oxygenSaturation + "\n"
+                + breathingRate + "\n"
+                + heartRate + "\n"
+                + systolicBloodPressure + "\n"
+                + diastolicBloodPressure + "\n";
+        return data.getBytes();
+    }
+    
+    @Deprecated
+    byte[] getDataWithField() {
         String data = "key: " + key + "\n"
                 + "name: " + name + "\n"
                 + "age: " + age + "\n"

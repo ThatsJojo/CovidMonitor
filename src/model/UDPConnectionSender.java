@@ -25,7 +25,7 @@ public class UDPConnectionSender extends Thread {
             boolean firstConnect = true;
             InetAddress address = InetAddress.getByName(user.getIp());
             int port = Integer.parseInt(user.getPort());
-            if (port > 100000 || port < 0) {
+            if (port > 60000 || port < 1025) {
                 Exception ex = new Exception("Port out of range:" + port);
                 user.setInvalidPort(true);
                 user.setAllert(true, new UserExceptionAllert("Conexão não foi estabelecida. Porta inválida: ", ex), "Port out of range:" + port, user.getKey());
@@ -52,6 +52,7 @@ public class UDPConnectionSender extends Thread {
         } catch (SocketException ex) {
             user.setAllert(true, new UserExceptionAllert("Conexão falhou: excessão no UDP Socket sender.", ex), ex.toString(), user.getKey());
             connected = false;
+//            user.setInvalidPort(true);
             this.interrupt();
         } catch (IOException ex) {
             user.setAllert(true, new UserExceptionAllert("Conexão falhou: Falha no envio dos dados - IOException.", ex), ex.toString(), user.getKey());
