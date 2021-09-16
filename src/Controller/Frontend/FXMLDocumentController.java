@@ -216,7 +216,7 @@ public class FXMLDocumentController implements Initializable {
     }
 
     private void disableSend() {
-        lblConectado.setText("Porta inválida. Impossível Conectar.");
+        lblConectado.setText("Host inválido. Impossível Conectar.");
         btnStartSend.setDisable(true);
         btnStartSend.setVisible(false);
     }

@@ -47,6 +47,7 @@ public class UDPConnectionSender extends Thread {
         } catch (UnknownHostException ex) {
             user.setAllert(true, new UserExceptionAllert("Conexão falhou: Sender Host não reconhecido.", ex), ex.toString(), user.getKey());
             connected = false;
+            user.setInvalidPort(true);
             this.interrupt();
         } catch (SocketException ex) {
             user.setAllert(true, new UserExceptionAllert("Conexão falhou: excessão no UDP Socket sender.", ex), ex.toString(), user.getKey());

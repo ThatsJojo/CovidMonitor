@@ -31,13 +31,15 @@ public class UDPConnectionReceiver extends Thread {
             DatagramPacket pkg = new DatagramPacket(msg, msg.length);
             while (connected) {
                 ds = new DatagramSocket(porta, InetAddress.getByName(IP));
-                try{
+//                ds.setSoTimeout(1000);
+//                try{
                     ds.receive(pkg);
-                }catch(SocketException ex){
-                    if(!ex.getMessage().equals("Receive timed out")){
-                        throw ex;
-                    }
-                }
+//                }catch(SocketException ex){
+//                    if(!ex.getMessage().equals("Receive timed out")){
+//                        throw ex;
+//                    }else
+//                        System.out.println("OPA");
+//                }
                 String recievedMessage[] = new String(pkg.getData()).trim().split("\n");
                 if (recievedMessage != null && recievedMessage.length > 1) {
                     User user = USERS.get(recievedMessage[0]);
