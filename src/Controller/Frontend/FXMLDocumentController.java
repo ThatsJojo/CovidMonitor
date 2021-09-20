@@ -180,11 +180,20 @@ public class FXMLDocumentController implements Initializable {
         AllertConfigPane.setVisible(true);
     }
 
+    /**
+     * Evento ocasionado pelo início do envio das mensagens.
+     * @param event Evento capturado.
+     */
     @FXML
     private void handleBtnStartSend(ActionEvent event) {
         setConnectedVisualStatus(true);
     }
 
+    /**
+     * Atualiza as informações de conexão (botão de enviar e label de conexão).
+     * @param flag Identifica o motivo da atualização: true -> click no botão de cancelar envio.
+     *                                                false ->Alteração de tab de usuário.
+     */
     private void setConnectedVisualStatus(boolean flag) {
         if (currentUser.isInvalidPort()) {
             disableSend();
@@ -215,12 +224,19 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
+    /**
+     * Caso as informações de conexão sejam inválidas, impede o estabelecimento de conexão.
+     */
     private void disableSend() {
         lblConectado.setText("Host inválido. Impossível Conectar.");
         btnStartSend.setDisable(true);
         btnStartSend.setVisible(false);
     }
 
+    /**
+     * Gerancia as ações após clique no botão de início de conexão.
+     * @param event Evento capturado.
+     */
     @FXML
     private void handleBtnStartConnection(ActionEvent event) {
         User user;
@@ -263,6 +279,10 @@ public class FXMLDocumentController implements Initializable {
 
     }
 
+    /**
+     * Gerencia as ações após mudança de tab de usuário.
+     * @param event Evento capturado.
+     */
     @FXML
     private void userTabChanged(Event event) {
         Tab t = (Tab) event.getTarget();
@@ -271,7 +291,7 @@ public class FXMLDocumentController implements Initializable {
             return;
         }
         String name = t.getText();
-        if (t.isSelected()) {
+        if (t.isSelected()) {//Caso esteja abrindo a Tab, atualiza as informações da tela com o User referente à Tab em questão.
             t.setContent(content);
             User user = tabsXusers.get(t);
             currentUser = user;
@@ -292,12 +312,16 @@ public class FXMLDocumentController implements Initializable {
             userOxygenSaturation.getSelectionModel().select(user.getOxygenSaturation());
             userTemperature.getSelectionModel().select(user.getTemperature());
 
-        } else {
+        } else {//Caso esteja fechando a Tab de usuário.
             t.setContent(null);
             currentTab = tabLogin;
         }
     }
 
+    /**
+     * Finaliza a conexão de um usuário.
+     * @param event Evento recebido.
+     */
     @FXML
     private void stopConnection(Event event) {
         User user = tabsXusers.get((Tab) event.getTarget());
@@ -314,6 +338,10 @@ public class FXMLDocumentController implements Initializable {
         FXMLDocumentController.myStage = myStage;
     }
 
+    /**
+     * Caso a tela tenha alteração na informação de Temperatura, atualiza o usuário atual.
+     * @param event 
+     */
     @FXML
     private void userTemperatureOnChange(ActionEvent event) {
         currentUser.setTemperature(userTemperature.getValue());
@@ -344,6 +372,10 @@ public class FXMLDocumentController implements Initializable {
         currentUser.setDiastolicBloodPressure(userDiastolicBloodPressure.getValue());
     }
 
+    /**
+     * Altera a cor do label de conexão para verde e em sequência preto.
+     * @param user 
+     */
     public void pisca(User user) {
         if (!currentUser.equals(user)) {
             return;
@@ -357,6 +389,13 @@ public class FXMLDocumentController implements Initializable {
         lblConectado.setTextFill(Color.BLACK);
     }
 
+    /**
+     * Envia uma mensagem de alerta ao usuário.
+     * @param flag Informa se devem ou não ser atualizadas as informações de conexão da tela.
+     * @param user Usuário para o qual a mensagem deve ser enviada.
+     * @param message Mensagem a ser exibida.
+     * @param ex Exceção gerada para a exibição da alerta.
+     */
     public void AllertUser(boolean flag, User user, String message, String ex) {
         if (currentTab == tabLogin) {
             return;
@@ -377,6 +416,10 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
+    /**
+     * Configura o endereço (IP e Porta) de recebimento das alertas.
+     * @param event 
+     */
     @FXML
     private void saveAllertAddress(ActionEvent event) {
         String ipTxt = allertIP.getText();

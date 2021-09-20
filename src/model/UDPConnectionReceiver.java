@@ -16,12 +16,22 @@ public class UDPConnectionReceiver extends Thread {
     private final int porta;
     private final String IP;
 
+    /**
+     * Conexão UDP para recebimento das Alertas.
+     * @param USERS HashMap dos usuários cadastrados.
+     * @param IP Endereço IP para Receber as Alertas.
+     * @param porta Porta para receber as Alertas.
+     */
     public UDPConnectionReceiver(HashMap<String, User> USERS, String IP, int porta) {
         this.USERS = USERS;
         this.porta = porta;
         this.IP = IP;
     }
 
+    /**
+     * Enquanto conectado, recebe pacotes UDP e envia aos usuários as mensagens
+     * recebidas que sejam a eles endereçadas.
+     */
     @Override
     public void run() {
         try {
@@ -48,6 +58,9 @@ public class UDPConnectionReceiver extends Thread {
         }
     }
 
+    /**
+     * Para a conexão.
+     */
     public void stopConnection() {
         this.connected = false;
     }
@@ -58,9 +71,5 @@ public class UDPConnectionReceiver extends Thread {
 
     public void setConnected(boolean connected) {
         this.connected = connected;
-    }
-
-    public void addUser(User user) {
-
     }
 }

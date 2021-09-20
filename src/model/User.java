@@ -31,6 +31,16 @@ public class User {
     private boolean hasUnseenAllert;
     private boolean invalidPort;
 
+    /**
+     * Cria um usuário.
+     * @param ip Endereço IP para conexão do Usuário.
+     * @param port Porta para conexão do Usuário.
+     * @param key Chave do usuário.
+     * @param name Nome do usuário.
+     * @param age Idade do usuário.
+     * @param sex Sexo do usuário.
+     * @param listenner Tela que atualiza a partidas das informações do usuário.
+     */
     public User(String ip, String port, String key, String name, String age, String sex, FXMLDocumentController listenner) {
         hasUnseenAllert = false;
         this.ip = ip;
@@ -49,6 +59,10 @@ public class User {
         invalidPort = false;
     }
 
+    /**
+     * Retorna a classe de conexão do usuário com o servidor.
+     * @return 
+     */
     public UDPConnectionSender getSender() {
         return sender;
     }
@@ -57,6 +71,9 @@ public class User {
         return sender.isConnected();
     }
 
+    /**
+     * Para as conexões do usuário.
+     */
     public void stopConnection() {
         sender.stopConnection();
         receiver.stopConnection();
@@ -69,6 +86,9 @@ public class User {
         receiver.interrupt();
     }
 
+    /**
+     * Inicializa a conexão com o servidor.
+     */
     public void startConnection() {
         sender = new UDPConnectionSender(this);
         sender.start();
@@ -254,12 +274,26 @@ public class User {
                 + "diastolicBloodPressure: " + diastolicBloodPressure + "   \n";
         return data.getBytes();
     }
+    
+    /**
+     * Muda a Alerta do usuário.
+     * @param flag Caso seja ou não realizada uma mudança na conexão.
+     * @param exception A exeção que causou a alerta.
+     * @param string A alerta recebida.
+     * @param userKey Chave do usuário.
+     */
 
     public void setAllert(boolean flag, UserExceptionAllert exception, String string, String userKey) {
         setAllert(flag, exception, string);
         this.hasUnseenAllert = true;
     }
 
+    /**
+     * Atualiza a tela com a alerta recebida.
+     * @param flag Caso seja ou não realizada uma mudança na conexão.
+     * @param exception A exeção que causou a alerta.
+     * @param string A alerta recebida.
+     */
     private void setAllert(boolean flag, UserExceptionAllert exception, String string) {
         this.hasUnseenAllert = true;
         this.allertException = exception.getMessage();
@@ -267,6 +301,9 @@ public class User {
             this.listenner.AllertUser(flag, this, exception.getMessage(), string);
     }
 
+    /**
+     * "Pisca" em verde a label de conexão. Indicando recebimento de pacote.
+     */
     public void sentAllert() {
         this.listenner.pisca(this);
     }

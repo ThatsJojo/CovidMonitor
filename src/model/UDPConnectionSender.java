@@ -13,11 +13,19 @@ public class UDPConnectionSender extends Thread {
     private final User user;
     private boolean connected;
 
+    /**
+     * Conexão de envio dos dados de usuário.
+     * @param user Usuário cujas informações seram enviadas.
+     */
     public UDPConnectionSender(User user) {
         this.user = user;
         connected = false;
     }
 
+    /**
+     * Enquanto conectado, envia as informações do usuário a cada 500mS, via UDP 
+     * para o endereço de conexão.
+     */
     @Override
     public void run() {
         try {
@@ -68,6 +76,9 @@ public class UDPConnectionSender extends Thread {
         }
     }
 
+    /**
+     * Para a conexão.
+     */
     public void stopConnection() {
         this.connected = false;
     }

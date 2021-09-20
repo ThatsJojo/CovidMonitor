@@ -21,6 +21,18 @@ public class UserController {
 
     }
 
+    /**
+     * Cria um usuário
+     * @param ip Endereço para conexão com o servidor.
+     * @param port Porta para conexão com o servidor.
+     * @param key Chave do usuário.
+     * @param name Nome do usuário.
+     * @param age Idade do usuário
+     * @param sex Sexo do usuário
+     * @param listenner tela que escuta as alterações do usuário.
+     * @return Usuário criado.
+     * @throws DuplicatedUserException Exceção gerada caso o usuário já exista.
+     */
     public static User createUser(String ip, String port, String key, String name, String age, String sex, FXMLDocumentController listenner) throws DuplicatedUserException {
         if (USERS.containsKey(key)) {
             throw new DuplicatedUserException("Nome: \"" + name + "\" User: \"" + key + "\" IP: \"" + ip + "\" Port: \"" + port + "\"");
@@ -36,6 +48,9 @@ public class UserController {
         return USERS.get(key);
     }
 
+    /**
+     * Finaliza as conexões de todos os usuários.
+     */
     public static void killAllUsersKonnections() {
         RECEIVER.stopConnection();
         RECEIVER.interrupt();
@@ -44,6 +59,11 @@ public class UserController {
         });
     }
     
+    /**
+     * Remove um usuário do HashMap.
+     * @param key chave para o usuário.
+     * @return Usuário removido ou null caso ele não estivesse presente.
+     */
     public static User removeUser(String key) {
         USERS.get(key).stopConnection();
         return USERS.remove(key);
