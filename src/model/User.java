@@ -235,11 +235,11 @@ public class User {
                 + oxygenSaturation + "\n"
                 + systolicBloodPressure + "\n"
                 + diastolicBloodPressure + "\n"
-                +d.getDay()+"/"+d.getMonth()+"/"+(Calendar.getInstance().get(Calendar.YEAR))+"\n"
-                +d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()+"\n";
+                + d.getDay() + "/" + d.getMonth() + "/" + (Calendar.getInstance().get(Calendar.YEAR)) + "\n"
+                + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "\n";
         return data.getBytes();
     }
-    
+
     @Deprecated
     byte[] getDataWithField() {
         String data = "key: " + key + "\n"
@@ -256,9 +256,7 @@ public class User {
     }
 
     public void setAllert(boolean flag, UserExceptionAllert exception, String string, String userKey) {
-        if (this.key.equals(userKey)) {
-            setAllert(flag, exception, string);
-        }
+        setAllert(flag, exception, string);
         this.hasUnseenAllert = true;
     }
 
@@ -266,7 +264,7 @@ public class User {
         this.hasUnseenAllert = true;
         this.allertException = exception.getMessage();
         this.allertString = string;
-        this.listenner.AllertUser(flag, this, exception.getMessage(), string);
+            this.listenner.AllertUser(flag, this, exception.getMessage(), string);
     }
 
     public void sentAllert() {

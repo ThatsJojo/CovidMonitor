@@ -4,8 +4,6 @@ import Controller.Frontend.FXMLDocumentController;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.UDPConnectionReceiver;
 import model.UDPConnectionSender;
 import model.User;
@@ -45,11 +43,12 @@ public class UserController {
             u.stopConnection();
         });
     }
-
+    
     public static User removeUser(String key) {
+        USERS.get(key).stopConnection();
         return USERS.remove(key);
     }
-
+    
     @Deprecated
     private static int getPorta() {
         int porta = 0;

@@ -276,7 +276,7 @@ public class FXMLDocumentController implements Initializable {
             User user = tabsXusers.get(t);
             currentUser = user;
             if (user.isHasUnseenAllert()) {
-                this.AllertUser(false, user, user.getAllertString(), user.getAllertException());
+                this.AllertUser(false, user, user.getAllertException(),user.getAllertString());
             }
             lblUserName.setText(user.getName());
             lblUserAge.setText(user.getAge());

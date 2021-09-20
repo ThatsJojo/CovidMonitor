@@ -27,19 +27,11 @@ public class UDPConnectionReceiver extends Thread {
         try {
             connected = true;
             DatagramSocket ds;
-            byte[] msg = new byte[1000];
-            DatagramPacket pkg = new DatagramPacket(msg, msg.length);
             while (connected) {
+                byte[] msg = new byte[1000];
+                DatagramPacket pkg = new DatagramPacket(msg, msg.length);
                 ds = new DatagramSocket(porta, InetAddress.getByName(IP));
-//                ds.setSoTimeout(1000);
-//                try{
-                    ds.receive(pkg);
-//                }catch(SocketException ex){
-//                    if(!ex.getMessage().equals("Receive timed out")){
-//                        throw ex;
-//                    }else
-//                        System.out.println("OPA");
-//                }
+                ds.receive(pkg);
                 String recievedMessage[] = new String(pkg.getData()).trim().split("\n");
                 if (recievedMessage != null && recievedMessage.length > 1) {
                     User user = USERS.get(recievedMessage[0]);
@@ -53,7 +45,7 @@ public class UDPConnectionReceiver extends Thread {
             System.out.println("Erro no recebimento de alertas: " + ex.getMessage());
         } catch (IOException ex) {
             System.out.println("Erro no recebimento de alertas: " + ex.getMessage());
-        } 
+        }
     }
 
     public void stopConnection() {
