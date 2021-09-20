@@ -41,7 +41,7 @@ public class User {
         this.sex = sex;
         this.listenner = listenner;
         temperature = "36 ºC";
-        oxygenSaturation = "96 %";
+        oxygenSaturation = "96";
         breathingRate = "12 ipm";
         heartRate = "60 bpm";
         systolicBloodPressure = "12 mmHg";

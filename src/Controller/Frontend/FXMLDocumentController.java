@@ -139,7 +139,7 @@ public class FXMLDocumentController implements Initializable {
         }
         ArrayList<String> percent = new ArrayList();
         for (int i = 0; i < 100; i++) {
-            percent.add("" + i + " %");
+            percent.add("" + i);
         }
 
         ArrayList<String> heartRate = new ArrayList();
